@@ -335,6 +335,17 @@ return [
         ],
     ],
 
+    /**
+     * Connection to ClickHouseServer
+     */
+    'clickHouseServer' => [
+        'host' => 'ch',
+        'port' => '8123',
+        'username' => 'default',
+        'password' => '',
+        'database' => 'default',
+    ],
+
     /*
      * Configures logging options
      */
