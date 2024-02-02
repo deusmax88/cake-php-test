@@ -111,7 +111,7 @@ class Application extends BaseApplication
     public function services(ContainerInterface $container): void
     {
         $container
-            ->add(ClickHouseClient::class, ClickHouse::getInstance()->getClient());
+            ->add(ClickHouse::class, ClickHouse::getInstance());
 
         $container
             ->add(HttpClient::class, HttpClient::class);
@@ -119,7 +119,7 @@ class Application extends BaseApplication
         $container
             ->add(WbServiceInterface::class, WbServices::class)
             ->addArgument(HttpClient::class)
-            ->addArgument(ClickHouseClient::class);;
+            ->addArgument(ClickHouse::class);;
 
         $container
             ->add(ParseWBCommand::class)

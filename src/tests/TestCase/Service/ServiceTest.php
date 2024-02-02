@@ -4,7 +4,7 @@ namespace App\Test\Service\WB;
 
 use App\Service\WB\Service;
 use Cake\Http\Client as HttpClient;
-use ClickHouseDB\Client as ClickHouseClient;
+use Eggheads\CakephpClickHouse\ClickHouse;
 use PHPUnit\Framework\TestCase;
 
 class ServiceTest extends TestCase
@@ -31,7 +31,7 @@ EOL;
             ->method('get')
             ->willReturn(new HttpClient\Response([],$responseJSON));
 
-        $clickHouseClientMock = $this->createMock(ClickHouseClient::class);
+        $clickHouseClientMock = $this->createMock(ClickHouse::class);
         $clickHouseClientMock
             ->expects($this->atLeastOnce())
             ->method('insertAssocBulk')

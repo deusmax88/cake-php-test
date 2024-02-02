@@ -4,11 +4,12 @@ declare(strict_types=1);
 namespace App\Service\WB;
 
 use Cake\Http\Client as HttpClient;
-use ClickHouseDB\Client as ClickHouseClient;
+use Eggheads\CakephpClickHouse\ClickHouse;
+use Eggheads\CakephpClickHouse\ClickHouseTransaction;
 
 class Service implements ServiceInterface
 {
-    public function __construct(protected HttpClient $httpClient, protected ClickHouseClient $clickHouseClient)
+    public function __construct(protected HttpClient $httpClient, protected ClickHouse $clickHouse)
     {
     }
 
@@ -38,17 +39,26 @@ class Service implements ServiceInterface
             return;
         }
 
-        foreach ($body['data']['products'] as $product) {
-            $row = [
-                'search_id' => 1,
-                'search_word' => $searchWord,
-                'product_id' => $product['id'],
-                'product_name' => $product['name'],
-                'brand_name' => $product['brand']
-            ];
+        $searchTableKeys = [
+            'search_id',
+            'search_word',
+            'product_id',
+            'product_name',
+            'brand_name',
+        ];
 
-            $this->clickHouseClient->insertAssocBulk('search_results', $row);
+        $tx = new ClickHouseTransaction($this->clickHouse,'default.search_results', $searchTableKeys);
+        foreach ($body['data']['products'] as $product) {
+            $row = array_combine($searchTableKeys, [
+                 1,
+                $searchWord,
+                $product['id'],
+                $product['name'],
+                $product['brand']
+            ]);
+            $tx->append($row);
         }
+        $tx->commit();
     }
 
     public function searchByQueryWithPaging(string $query, int $page, int $perPage): array
@@ -58,7 +68,7 @@ class Service implements ServiceInterface
             return [$result, 0];
         }
 
-        $stmt = $this->clickHouseClient->select(
+        $stmt = $this->clickHouse->select(
             "SELECT *
                         FROM search_results
                     WHERE search_word LIKE '%$query%' OR product_name LIKE '%$query%'
