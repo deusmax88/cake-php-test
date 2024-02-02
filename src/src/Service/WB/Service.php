@@ -47,18 +47,24 @@ class Service implements ServiceInterface
             'brand_name',
         ];
 
-        $tx = new ClickHouseTransaction($this->clickHouse,'default.search_results', $searchTableKeys);
-        foreach ($body['data']['products'] as $product) {
-            $row = array_combine($searchTableKeys, [
-                 1,
-                $searchWord,
-                $product['id'],
-                $product['name'],
-                $product['brand']
-            ]);
-            $tx->append($row);
+        try{
+            $tx = new ClickHouseTransaction($this->clickHouse,'default.search_results', $searchTableKeys);
+            foreach ($body['data']['products'] as $product) {
+                $row = array_combine($searchTableKeys, [
+                    1,
+                    $searchWord,
+                    $product['id'],
+                    $product['name'],
+                    $product['brand']
+                ]);
+                $tx->append($row);
+            }
+            $tx->commit();
         }
-        $tx->commit();
+        catch(\Throwable $e) {
+            $tx->rollback();
+            throw $e;
+        }
     }
 
     public function searchByQueryWithPaging(string $query, int $page, int $perPage): array
