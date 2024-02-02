@@ -4,6 +4,9 @@ namespace App\Test\Service\WB;
 
 use App\Service\WB\Service;
 use Cake\Http\Client as HttpClient;
+use ClickHouseDB\Client as ClickHouseClient;
+use ClickHouseDB\Statement;
+use ClickHouseDB\Transport\CurlerRequest;
 use Eggheads\CakephpClickHouse\ClickHouse;
 use PHPUnit\Framework\TestCase;
 
@@ -31,13 +34,14 @@ EOL;
             ->method('get')
             ->willReturn(new HttpClient\Response([],$responseJSON));
 
-        $clickHouseClientMock = $this->createMock(ClickHouse::class);
+        $clickHouseClientMock = $this->createMock(ClickHouseClient::class);
         $clickHouseClientMock
             ->expects($this->atLeastOnce())
-            ->method('insertAssocBulk')
+            ->method('insertBatchFiles')
+            ->willReturn([new Statement(new CurlerRequest())]);
         ;
 
-        $wbService = new Service($httpClientMock, $clickHouseClientMock);
+        $wbService = new Service($httpClientMock, new ClickHouse($clickHouseClientMock));
 
         $wbService->storeBySearchWord('searchWord');
     }
