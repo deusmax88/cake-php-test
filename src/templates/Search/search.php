@@ -9,12 +9,12 @@
 
 <div class="row">
     <div class="col-6">
-        <table >
+        <table>
             <tbody>
             <?php if(count($results) > 0):?>
                 <?php foreach ($results as $result): ?>
 <!--                --><?// pr($result) ?>
-                    <tr>
+                    <tr class="search-result">
                         <td><?= $result['search_id'] ?></td>
                         <td><?= $result['search_word'] ?></td>
                         <td><?= $result['product_name'] ?></td>

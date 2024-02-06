@@ -3,38 +3,27 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Command;
 
-use App\Command\ParseWBCommand;
+use App\Service\WB\Service;
+use App\Service\WB\ServiceInterface as WbServiceInterface;
 use Cake\Console\TestSuite\ConsoleIntegrationTestTrait;
 use Cake\TestSuite\TestCase;
 
-/**
- * App\Command\ParseWBCommand Test Case
- *
- * @uses \App\Command\ParseWBCommand
- */
 class ParseWBCommandTest extends TestCase
 {
     use ConsoleIntegrationTestTrait;
 
-    /**
-     * Test buildOptionParser method
-     *
-     * @return void
-     * @uses \App\Command\ParseWBCommand::buildOptionParser()
-     */
-    public function testBuildOptionParser(): void
+    public function testWbServiceIsInvoked(): void
     {
-        $this->markTestSkipped();
-    }
+        $this->mockService(WbServiceInterface::class, function () {
+            $searchService = $this->createMock(Service::class);
+            $searchService->expects($this->once())->method('storeBySearchWord')
+                ->with($this->equalTo('search_word'));
+            return $searchService;
+        });
 
-    /**
-     * Test execute method
-     *
-     * @return void
-     * @uses \App\Command\ParseWBCommand::execute()
-     */
-    public function testExecute(): void
-    {
-        $this->markTestSkipped();
+        $this->exec('parse_w_b "search_word"');
+
+        $this->assertExitSuccess();
+        $this->assertOutputContains('Parsing WB finished');
     }
 }

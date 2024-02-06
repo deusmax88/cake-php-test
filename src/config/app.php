@@ -170,7 +170,7 @@ return [
      *   your application that still emit deprecations.
      */
     'Error' => [
-        'errorLevel' => E_ALL,
+        'errorLevel' => E_ALL & ~E_USER_DEPRECATED,
         'skipLog' => [],
         'log' => true,
         'trace' => true,
@@ -344,6 +344,15 @@ return [
         'username' => 'default',
         'password' => '',
         'database' => 'default',
+    ],
+    'clickHouseWriters' => [
+        'temp' => [
+            'host' => 'ch',
+            'port' => '8123',
+            'username' => 'default',
+            'password' => '',
+            'database' => 'default',
+        ]
     ],
 
     /*

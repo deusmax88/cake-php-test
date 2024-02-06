@@ -48,44 +48,17 @@ EOL;
 
     public function testSearchByQueryWithPaging()
     {
-        $statementLikeDummyObject = new class implements \Iterator {
-            public function current(): mixed
-            {
-                return false;
-            }
-
-            public function next(): void
-            {
-            }
-
-            public function key(): mixed
-            {
-                return false;
-            }
-
-            public function valid(): bool
-            {
-                return false;
-            }
-
-            public function rewind(): void
-            {
-            }
-
-            public function countAll() {
-                return 0;
-            }
-        };
-
         $httpClientMock = $this->createMock(HttpClient::class);
+        $statement = $this->createMock(Statement::class);
+
         $clickHouseClientMock = $this->createMock(ClickHouseClient::class);
         $clickHouseClientMock
             ->expects($this->atLeastOnce())
             ->method('select')
-            ->willReturn($statementLikeDummyObject)
+            ->willReturn($statement)
         ;
 
-        $wbService = new Service($httpClientMock, $clickHouseClientMock);
+        $wbService = new Service($httpClientMock, new ClickHouse($clickHouseClientMock));
 
         $wbService->searchByQueryWithPaging('searchString', 1, 100);
     }
