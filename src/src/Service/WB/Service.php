@@ -80,7 +80,7 @@ class Service implements ServiceInterface
             "SELECT *
                         FROM search_results
                     WHERE search_word LIKE '%$query%' OR product_name LIKE '%$query%'
-                    ORDER BY product_id
+                    ORDER BY search_id
                     LIMIT $perPage OFFSET " . ($page - 1) * $perPage
         );
 
