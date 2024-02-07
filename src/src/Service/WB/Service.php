@@ -30,6 +30,8 @@ class Service implements ServiceInterface
 
     private function doRequestAndStoreResults(string $searchWord, string $searchUrl) : void
     {
+        static $rowCount = 0;
+
         $response = $this->httpClient->get($searchUrl);
 
         $body = $response->getBody()->getContents();
@@ -51,7 +53,7 @@ class Service implements ServiceInterface
             $tx = new ClickHouseTransaction($this->clickHouse,'default.search_results', $searchTableKeys);
             foreach ($body['data']['products'] as $product) {
                 $row = array_combine($searchTableKeys, [
-                    1,
+                    $rowCount++,
                     $searchWord,
                     $product['id'],
                     $product['name'],
