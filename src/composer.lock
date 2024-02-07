@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f25a12117b9a92ab3357eb567d876b68",
+    "content-hash": "f146e33663fb6f6cb4d927a5c3f5a40f",
     "packages": [
         {
             "name": "cakephp/cakephp",
@@ -366,6 +366,66 @@
                 }
             ],
             "time": "2023-12-18T12:05:55+00:00"
+        },
+        {
+            "name": "eggheads/cakephp-clickhouse",
+            "version": "1.20",
+            "source": {
+                "type": "git",
+                "url": "https://gitlab.eggheads.solutions/eggheadssolutions/backend/library/cakephp-clickhouse.git",
+                "reference": "f8182777da3cd7578c7f3f68c0cc234d65fb9959"
+            },
+            "require": {
+                "ext-json": "*",
+                "php": ">=8.0 || >=7.4",
+                "smi2/phpclickhouse": "^1.5"
+            },
+            "require-dev": {
+                "cakephp/cakephp": "^4.3",
+                "cakephp/debug_kit": "^4.7",
+                "eggheads/eggheads-code-style": "^2.1",
+                "eggheads/mocks": "^1.0",
+                "mheap/phpunit-github-actions-printer": "^1.5",
+                "phpunit/phpunit": "^9.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Eggheads\\CakephpClickHouse\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Eggheads\\CakephpClickHouse\\Tests\\": "tests/"
+                }
+            },
+            "scripts": {
+                "check": [
+                    "@cs-check",
+                    "@phpmd-check",
+                    "@phpstan-check",
+                    "@test"
+                ],
+                "cs-check": [
+                    "phpcs --colors -p src/ tests/"
+                ],
+                "cs-fix": [
+                    "phpcbf --colors -p src/ tests/"
+                ],
+                "phpmd-check": [
+                    "vendor/bin/phpmd src/,tests/ text phpmd-ruleset.xml"
+                ],
+                "phpstan-check": [
+                    "vendor/bin/phpstan --configuration=phpstan.neon"
+                ],
+                "test": [
+                    "vendor/bin/phpunit --colors=always"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "time": "2023-07-13T14:24:11+00:00"
         },
         {
             "name": "laminas/laminas-diactoros",
@@ -1179,17 +1239,76 @@
             "time": "2023-12-05T13:24:00+00:00"
         },
         {
-            "name": "symfony/config",
-            "version": "v7.0.3",
+            "name": "smi2/phpclickhouse",
+            "version": "1.5.3",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/config.git",
-                "reference": "86a5027869ca3d6bdecae6d5d6c2f77c8f2c1d16"
+                "url": "https://github.com/smi2/phpClickHouse.git",
+                "reference": "66128bf187755d617fce23076b1c9aca2a2cb64e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/config/zipball/86a5027869ca3d6bdecae6d5d6c2f77c8f2c1d16",
-                "reference": "86a5027869ca3d6bdecae6d5d6c2f77c8f2c1d16",
+                "url": "https://api.github.com/repos/smi2/phpClickHouse/zipball/66128bf187755d617fce23076b1c9aca2a2cb64e",
+                "reference": "66128bf187755d617fce23076b1c9aca2a2cb64e",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "php": "^7.3|^8.0"
+            },
+            "require-dev": {
+                "doctrine/coding-standard": "^8.2",
+                "phpstan/phpstan": "^0.12",
+                "phpunit/phpunit": "^9.5",
+                "sebastian/comparator": "^4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ClickHouseDB\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Igor Strykhar",
+                    "email": "isublimity@gmail.com",
+                    "homepage": "https://github.com/isublimity"
+                }
+            ],
+            "description": "PHP ClickHouse Client",
+            "homepage": "https://github.com/smi2/phpClickHouse",
+            "keywords": [
+                "clickhouse",
+                "client",
+                "curl",
+                "driver",
+                "http",
+                "http client",
+                "php"
+            ],
+            "support": {
+                "issues": "https://github.com/smi2/phpClickHouse/issues",
+                "source": "https://github.com/smi2/phpClickHouse/tree/1.5.3"
+            },
+            "time": "2024-01-18T11:08:36+00:00"
+        },
+        {
+            "name": "symfony/config",
+            "version": "v7.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/config.git",
+                "reference": "8789646600f4e7e451dde9e1dc81cfa429f3857a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/config/zipball/8789646600f4e7e451dde9e1dc81cfa429f3857a",
+                "reference": "8789646600f4e7e451dde9e1dc81cfa429f3857a",
                 "shasum": ""
             },
             "require": {
@@ -1235,7 +1354,7 @@
             "description": "Helps you find, load, combine, autofill and validate configuration values of any kind",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/config/tree/v7.0.3"
+                "source": "https://github.com/symfony/config/tree/v7.0.0"
             },
             "funding": [
                 {
@@ -1251,20 +1370,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-01-30T08:34:29+00:00"
+            "time": "2023-11-09T08:30:23+00:00"
         },
         {
             "name": "symfony/console",
-            "version": "v7.0.3",
+            "version": "v7.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "c5010d50f1ee4b25cfa0201d9915cf1b14071456"
+                "reference": "f8587c4cdc5acad67af71c37db34ef03af91e59c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/c5010d50f1ee4b25cfa0201d9915cf1b14071456",
-                "reference": "c5010d50f1ee4b25cfa0201d9915cf1b14071456",
+                "url": "https://api.github.com/repos/symfony/console/zipball/f8587c4cdc5acad67af71c37db34ef03af91e59c",
+                "reference": "f8587c4cdc5acad67af71c37db34ef03af91e59c",
                 "shasum": ""
             },
             "require": {
@@ -1328,7 +1447,7 @@
                 "terminal"
             ],
             "support": {
-                "source": "https://github.com/symfony/console/tree/v7.0.3"
+                "source": "https://github.com/symfony/console/tree/v7.0.2"
             },
             "funding": [
                 {
@@ -1344,7 +1463,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-01-23T15:02:46+00:00"
+            "time": "2023-12-10T16:54:46+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
@@ -1415,16 +1534,16 @@
         },
         {
             "name": "symfony/filesystem",
-            "version": "v7.0.3",
+            "version": "v7.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/filesystem.git",
-                "reference": "2890e3a825bc0c0558526c04499c13f83e1b6b12"
+                "reference": "7da8ea2362a283771478c5f7729cfcb43a76b8b7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/filesystem/zipball/2890e3a825bc0c0558526c04499c13f83e1b6b12",
-                "reference": "2890e3a825bc0c0558526c04499c13f83e1b6b12",
+                "url": "https://api.github.com/repos/symfony/filesystem/zipball/7da8ea2362a283771478c5f7729cfcb43a76b8b7",
+                "reference": "7da8ea2362a283771478c5f7729cfcb43a76b8b7",
                 "shasum": ""
             },
             "require": {
@@ -1458,7 +1577,7 @@
             "description": "Provides basic utilities for the filesystem",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/filesystem/tree/v7.0.3"
+                "source": "https://github.com/symfony/filesystem/tree/v7.0.0"
             },
             "funding": [
                 {
@@ -1474,7 +1593,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-01-23T15:02:46+00:00"
+            "time": "2023-07-27T06:33:22+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -1890,16 +2009,16 @@
         },
         {
             "name": "symfony/string",
-            "version": "v7.0.3",
+            "version": "v7.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/string.git",
-                "reference": "524aac4a280b90a4420d8d6a040718d0586505ac"
+                "reference": "cc78f14f91f5e53b42044d0620961c48028ff9f5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/string/zipball/524aac4a280b90a4420d8d6a040718d0586505ac",
-                "reference": "524aac4a280b90a4420d8d6a040718d0586505ac",
+                "url": "https://api.github.com/repos/symfony/string/zipball/cc78f14f91f5e53b42044d0620961c48028ff9f5",
+                "reference": "cc78f14f91f5e53b42044d0620961c48028ff9f5",
                 "shasum": ""
             },
             "require": {
@@ -1956,7 +2075,7 @@
                 "utf8"
             ],
             "support": {
-                "source": "https://github.com/symfony/string/tree/v7.0.3"
+                "source": "https://github.com/symfony/string/tree/v7.0.2"
             },
             "funding": [
                 {
@@ -1972,7 +2091,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-01-29T15:41:16+00:00"
+            "time": "2023-12-10T16:54:46+00:00"
         }
     ],
     "packages-dev": [
@@ -2027,23 +2146,23 @@
         },
         {
             "name": "cakephp/bake",
-            "version": "3.1.0",
+            "version": "3.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/bake.git",
-                "reference": "d5ae87b5f77d35335c1ee026ba55b7213f9393ba"
+                "reference": "3fe0de83b2bf2ebbe95b67c7eed221c74044d81e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cakephp/bake/zipball/d5ae87b5f77d35335c1ee026ba55b7213f9393ba",
-                "reference": "d5ae87b5f77d35335c1ee026ba55b7213f9393ba",
+                "url": "https://api.github.com/repos/cakephp/bake/zipball/3fe0de83b2bf2ebbe95b67c7eed221c74044d81e",
+                "reference": "3fe0de83b2bf2ebbe95b67c7eed221c74044d81e",
                 "shasum": ""
             },
             "require": {
                 "brick/varexporter": "^0.4.0",
-                "cakephp/cakephp": "^5.0.3",
+                "cakephp/cakephp": "^5.0.0",
                 "cakephp/twig-view": "^2.0.0",
-                "nikic/php-parser": "^4.13.2 || ^5.0.0",
+                "nikic/php-parser": "^4.13.2",
                 "php": ">=8.1"
             },
             "require-dev": {
@@ -2078,7 +2197,7 @@
                 "issues": "https://github.com/cakephp/bake/issues",
                 "source": "https://github.com/cakephp/bake"
             },
-            "time": "2024-01-30T15:09:37+00:00"
+            "time": "2024-01-21T15:24:58+00:00"
         },
         {
             "name": "cakephp/cakephp-codesniffer",
@@ -5504,16 +5623,16 @@
         },
         {
             "name": "symfony/process",
-            "version": "v7.0.3",
+            "version": "v7.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "937a195147e0c27b2759ade834169ed006d0bc74"
+                "reference": "acd3eb5cb02382c1cb0287ba29b2908cc6ffa83a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/937a195147e0c27b2759ade834169ed006d0bc74",
-                "reference": "937a195147e0c27b2759ade834169ed006d0bc74",
+                "url": "https://api.github.com/repos/symfony/process/zipball/acd3eb5cb02382c1cb0287ba29b2908cc6ffa83a",
+                "reference": "acd3eb5cb02382c1cb0287ba29b2908cc6ffa83a",
                 "shasum": ""
             },
             "require": {
@@ -5545,7 +5664,7 @@
             "description": "Executes commands in sub-processes",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/process/tree/v7.0.3"
+                "source": "https://github.com/symfony/process/tree/v7.0.2"
             },
             "funding": [
                 {
@@ -5561,7 +5680,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-01-23T15:02:46+00:00"
+            "time": "2023-12-24T09:15:37+00:00"
         },
         {
             "name": "theseer/tokenizer",
