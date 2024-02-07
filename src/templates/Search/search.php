@@ -1,6 +1,6 @@
 <div class="row">
     <form method="get">
-        <input type="search" name="query" value="<?=$query?>"/>
+        <input type="search" name="query" value="<?= h($query)?>"/>
 <!--        <input type="hidden" name="page" value="--><?php //=$page?><!--" />-->
 <!--        <input type="hidden" name="perPage" value="--><?php //=$perPage?><!--" />-->
         <input type="submit" />

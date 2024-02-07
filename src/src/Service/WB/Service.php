@@ -23,7 +23,7 @@ class Service implements ServiceInterface
             . '&regions=80,38,4,64,83,33,68,70,69,30,86,75,40,1,66,110,22,31,48,71,114&resultset=catalog&sort=popular&spp=0&suppressSpellcheck=false';
 
         // Making http requests
-        for ($i = 1; $i < 12; $i++) {
+        for ($i = 1; $i < 11; $i++) {
             $this->doRequestAndStoreResults($searchWord,$searchUrl."&page=".$i);
         }
     }
@@ -84,12 +84,6 @@ class Service implements ServiceInterface
                     LIMIT $perPage OFFSET " . ($page - 1) * $perPage
         );
 
-        foreach ($stmt as $row) {
-            $result[] = $row;
-        }
-
-        $total = $stmt->countAll();
-
-        return [$result, $total];
+        return [$stmt->rows(), $stmt->countAll()];
     }
 }
