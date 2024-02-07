@@ -12,6 +12,8 @@ class SearchController extends AppController
     public function search(ServiceInterface $wbService) : ?Response
     {
         $query = (string) $this->request->getQuery('query');
+        $query = h($query);
+
         $page = (int) $this->request->getQuery('page', 1);
         $perPage = (int) $this->request->getQuery('perPage', 20);
 
